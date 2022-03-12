@@ -1,0 +1,241 @@
+body, html {padding:0;margin:0;}
+
+body {
+  overflow-y: scroll;
+}
+
+.hero {
+  position:relative;
+  top:0;
+  width:100%;
+  height:300px;
+  background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+h1,h2,h3,button,label,select,p {
+  font-family: 'Open Sans', sans-serif !important;
+  font-style: italic;
+  font-weight: 300;
+}
+
+span {
+  font-weight: 900;
+}
+
+.mosscontainer {
+  padding:10px;
+}
+
+button#prev {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+button#myBtn {
+    position: absolute;
+    top: 0;
+    left: 49%;
+}
+
+button#next {
+  right: 0;
+  position: absolute;
+  top: 0;
+}
+
+h2#title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  padding: 10px;
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.pages h3 {
+  margin: 0px;
+  padding: 5px;
+}
+
+.pages{
+position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: black;
+}
+
+.facts span {
+  float:right;
+}
+
+.facts {
+  width:200px;
+  position: absolute;
+  right: 15px;
+  background-color: #b4fab4;
+  padding: 15px;
+}
+
+.facts > h3 {
+  font-size:16px;
+  padding:0;
+  margin:3px;
+  font-weight: 200;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    color:black;
+    background-color: #efeade;
+    position: absolute;
+    top:0;
+    padding: 20px;
+    border: 1px solid #888;
+    width: calc(100% - 42px);
+    text-align: justify;
+  }
+
+  label,select {
+    font-family: "Times New Roman";
+  }
+  
+  /* The Close Button */
+  .close {
+    background: white;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    top: 0;
+    position: absolute;
+    right: 0;
+    z-index: 3;
+    padding: 6px;
+    border-style:solid;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  div#gallery {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 44px;
+}
+
+.galleryimage {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.3s;
+  margin:auto;
+}
+
+.galleryimage:hover {opacity: 0.7;}
+
+/* image modal */
+
+
+/* The Modal (background) */
+.imageModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 4; /* Sit on top */
+  padding-top: 50px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.imageModal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 1000px;
+}
+
+/* Caption of Modal Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 1000px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 0px;
+}
+
+/* Add Animation */
+.imageModal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.2s;
+  animation-name: zoom;
+  animation-duration: 0.2s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.imageModalclose {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.imageModalclose:hover,
+.imageModalclose:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .imageModal-content {
+    height: 100vh;
+    object-fit: cover;
+    width:auto;
+  }
+}
+
