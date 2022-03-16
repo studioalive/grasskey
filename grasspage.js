@@ -1,19 +1,22 @@
 function getGrass(name) {
 
 
-                displayGrass(name);
+    displayGrass(name);
 
- 
+
 }
 
 
 
 function displayGrass(title) {
+    $("#nanogallery2").nanogallery2('destroy');
     document.getElementById("hero").style.backgroundImage = "";
-    gbifgallery=[];
+    flickItems = [];
+    flickGallery = [];
+    gbifgallery = [];
     document.getElementById("title").innerHTML = title;
     document.getElementById("wiki").innerHTML = "";
-    document.getElementById("swipergallery").innerHTML = "";
+    document.getElementById("nanogallery2").innerHTML = "";
 
     getFlickr(title);
     getWiki(title);
@@ -76,9 +79,9 @@ function getImages(title) {
         .then(function (response) {
             images = response;
             imageArray = findAllByKey(images, 'url');
-            if (imageArray.length<3) {gbif(title);} else {
-            document.getElementById("hero").style.backgroundImage = "url(" + imageArray[0] + ")";
-            gallery(imageArray);
+            if (imageArray.length < 3) { gbif(title); } else {
+                document.getElementById("hero").style.backgroundImage = "url(" + imageArray[0] + ")";
+                gallery(imageArray);
             }
         })
 
@@ -90,27 +93,33 @@ function getImages(title) {
 function getFlickr(title) {
     var flickurl = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=de263df0e3f49e27607f6dada330262c&sort=relevance&per_page=12&format=json&nojsoncallback=1&text=" + title;
     fetch(flickurl)
-    .then(function (response) { return response.json(); })
-    .then(function (response) {
-        flick = response;
-        console.log(flick);
+        .then(function (response) { return response.json(); })
+        .then(function (response) {
+            flick = response;
+            console.log(flick);
 
-        for (i = 0; i < flick.photos.photo.length; i++) {
-        let flickId = flick.photos.photo[i].id;
-        let flickSecret = flick.photos.photo[i].secret;
-let flickServer = flick.photos.photo[i].server;
-let flickFarm = flick.photos.photo[i].farm;
-let flickTitle = flick.photos.photo[i].title;
-          let  flickURL = "http://farm" + flickFarm + ".static.flickr.com/" + flickServer + "/" + flickId + "_" + flickSecret + ".jpg";
-          let flickImg = "<img src = " + flickURL + ">";
-          let swiperwrap = "<div class='swiper-slide'>" + flickImg + "</div>";
-          document.getElementById('swipergallery').innerHTML += swiperwrap;
-        }
-    })
+            for (i = 0; i < flick.photos.photo.length; i++) {
+                let flickId = flick.photos.photo[i].id;
+                let flickSecret = flick.photos.photo[i].secret;
+                let flickServer = flick.photos.photo[i].server;
+                let flickFarm = flick.photos.photo[i].farm;
+                let flickTitle = flick.photos.photo[i].title;
+                let flickURL = "http://farm" + flickFarm + ".static.flickr.com/" + flickServer + "/" + flickId + "_" + flickSecret + ".jpg";
+                  let flickImg = "<a href= " + flickURL + "></a>";
+                  document.getElementById('nanogallery2').innerHTML += flickImg;
 
-    .catch(function (error) {
-        console.log(error);
-    });
+            }
+
+
+        })
+        .then(function (response) {
+                $("#nanogallery2").nanogallery2();
+            })
+
+        .catch(function (error) {
+            console.log(error);
+        });
+
 }
 
 
@@ -131,7 +140,7 @@ function gallery(array) {
         imagenode.setAttribute("onclick", "openImage(" + i + ")");
         imagenode.className = "galleryimage";
         imagenode.id = "galleryimage" + i;
-        document.getElementById('gallery').appendChild(imagenode).setAttribute('src', array[i]);
+        document.getElementById('nanogallery2').appendChild(imagenode).setAttribute('src', array[i]);
     }
 
 }
@@ -172,7 +181,7 @@ function gbif(title) {
         .then(function (response) { return response.json(); })
         .then(function (response) {
             gbifkey = response;
-            
+
 
 
             imagekey = gbifkey.results[0].key;
@@ -194,11 +203,11 @@ function gbifImage(title) {
 
             // results[0].media[0].identifier
             for (i = 0; i < gbifarray.results[0].media.length; i++) {
-                        var gbifimage = gbifarray.results[0].media[i].identifier;
-                        gbifgallery.push(gbifimage);
-                        }
-                        document.getElementById("hero").style.backgroundImage = "url(" + gbifgallery[0] + ")";
-                            gallery(gbifgallery);
+                var gbifimage = gbifarray.results[0].media[i].identifier;
+                gbifgallery.push(gbifimage);
+            }
+            document.getElementById("hero").style.backgroundImage = "url(" + gbifgallery[0] + ")";
+            gallery(gbifgallery);
         })
 
         .catch(function (error) {
