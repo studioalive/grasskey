@@ -1,21 +1,21 @@
-function getMoss(name) {
+function getGrass(name) {
 
 
-                displayPage(name);
+                displayGrass(name);
 
  
 }
 
 
 
-function displayPage(title) {
+function displayGrass(title) {
     document.getElementById("hero").style.backgroundImage = "";
     gbifgallery=[];
     document.getElementById("title").innerHTML = title;
     document.getElementById("wiki").innerHTML = "";
-    document.getElementById("gallery").innerHTML = "";
+    document.getElementById("swipergallery").innerHTML = "";
 
-    gbif(title);
+    getFlickr(title);
     getWiki(title);
 
 
@@ -88,7 +88,7 @@ function getImages(title) {
 }
 
 function getFlickr(title) {
-    var flickurl = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=de263df0e3f49e27607f6dada330262c&sort=relevance&per_page=9&format=json&nojsoncallback=1&text=" + title;
+    var flickurl = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=de263df0e3f49e27607f6dada330262c&sort=relevance&per_page=12&format=json&nojsoncallback=1&text=" + title;
     fetch(flickurl)
     .then(function (response) { return response.json(); })
     .then(function (response) {
@@ -102,8 +102,9 @@ let flickServer = flick.photos.photo[i].server;
 let flickFarm = flick.photos.photo[i].farm;
 let flickTitle = flick.photos.photo[i].title;
           let  flickURL = "http://farm" + flickFarm + ".static.flickr.com/" + flickServer + "/" + flickId + "_" + flickSecret + ".jpg";
-          let flickLink = "<a href = " + flickURL + ">"+flickTitle+"</a>";
-          document.getElementById('gallery').innerHTML += flickLink;
+          let flickImg = "<img src = " + flickURL + ">";
+          let swiperwrap = "<div class='swiper-slide'>" + flickImg + "</div>";
+          document.getElementById('swipergallery').innerHTML += swiperwrap;
         }
     })
 

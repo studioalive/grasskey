@@ -4,6 +4,11 @@ body {
   overflow-y: scroll;
 }
 
+.swiper {
+  width: 600px;
+  height: 300px;
+}
+
 .hero {
   position:relative;
   top:0;
