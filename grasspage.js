@@ -10,11 +10,11 @@ function getGrass(name) {
 
 function displayGrass(title) {
     $("#nanogallery2").nanogallery2('destroy');
-    document.getElementById("hero").style.backgroundImage = "";
+    // document.getElementById("hero").style.backgroundImage = "";
     flickItems = [];
     flickGallery = [];
     gbifgallery = [];
-    document.getElementById("title").innerHTML = title;
+    // document.getElementById("title").innerHTML = title;
     document.getElementById("wiki").innerHTML = "";
     document.getElementById("nanogallery2").innerHTML = "";
 
@@ -80,7 +80,7 @@ function getImages(title) {
             images = response;
             imageArray = findAllByKey(images, 'url');
             if (imageArray.length < 3) { gbif(title); } else {
-                document.getElementById("hero").style.backgroundImage = "url(" + imageArray[0] + ")";
+                // document.getElementById("hero").style.backgroundImage = "url(" + imageArray[0] + ")";
                 gallery(imageArray);
             }
         })
@@ -91,6 +91,7 @@ function getImages(title) {
 }
 
 function getFlickr(title) {
+    // var flickurl = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=de263df0e3f49e27607f6dada330262c&sort=relevance&per_page=12&format=json&nojsoncallback=1&text=" + title + " grass";
     var flickurl = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=de263df0e3f49e27607f6dada330262c&sort=relevance&per_page=12&format=json&nojsoncallback=1&text=" + title;
     fetch(flickurl)
         .then(function (response) { return response.json(); })
@@ -104,16 +105,23 @@ function getFlickr(title) {
                 let flickServer = flick.photos.photo[i].server;
                 let flickFarm = flick.photos.photo[i].farm;
                 let flickTitle = flick.photos.photo[i].title;
-                let flickURL = "http://farm" + flickFarm + ".static.flickr.com/" + flickServer + "/" + flickId + "_" + flickSecret + ".jpg";
+                flickURL = "http://farm" + flickFarm + ".static.flickr.com/" + flickServer + "/" + flickId + "_" + flickSecret + ".jpg";
                   let flickImg = "<a href= " + flickURL + "></a>";
-                  document.getElementById('nanogallery2').innerHTML += flickImg;
-
+                  document.getElementById('nanogallery2').innerHTML += flickImg;    
             }
-
+            // document.getElementById("hero").style.backgroundImage = "url(" + flickURL + ")";
 
         })
         .then(function (response) {
-                $("#nanogallery2").nanogallery2();
+
+                $("#nanogallery2").nanogallery2({
+                    viewerGalleryTWidth: 600,
+                    thumbnailWidth:   350,
+                    thumbnailBorderHorizontal:0,
+                    thumbnailBorderVertical:0,  
+                    thumbnailGutterWidth:10,
+                    thumbnailGutterHeight:10
+                 } );
             })
 
         .catch(function (error) {
@@ -206,7 +214,7 @@ function gbifImage(title) {
                 var gbifimage = gbifarray.results[0].media[i].identifier;
                 gbifgallery.push(gbifimage);
             }
-            document.getElementById("hero").style.backgroundImage = "url(" + gbifgallery[0] + ")";
+            // document.getElementById("hero").style.backgroundImage = "url(" + gbifgallery[0] + ")";
             gallery(gbifgallery);
         })
 
